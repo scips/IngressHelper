@@ -2,7 +2,7 @@ define ["jquery","application/controllers/controller","application/models/api"],
 
   class loadingController extends Controller
 
-    constructor:(@view,@api)->
+    constructor:(@view,@settings)->
       super @view
 
     load:() ->
@@ -12,4 +12,7 @@ define ["jquery","application/controllers/controller","application/models/api"],
 
     activate:() ->
       super()
-      $('body').trigger('AppEvent',['LOADED'])
+      setTimeout(@event,1000)
+
+    event:() ->
+      $('body').trigger('AppEvent',['SCREEN1'])

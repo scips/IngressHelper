@@ -8,9 +8,9 @@ define(["jquery", "application/controllers/controller", "application/models/api"
 
     __extends(loadingController, _super);
 
-    function loadingController(view, api) {
+    function loadingController(view, settings) {
       this.view = view;
-      this.api = api;
+      this.settings = settings;
       loadingController.__super__.constructor.call(this, this.view);
     }
 
@@ -20,7 +20,11 @@ define(["jquery", "application/controllers/controller", "application/models/api"
 
     loadingController.prototype.activate = function() {
       loadingController.__super__.activate.call(this);
-      return $('body').trigger('AppEvent', ['LOADED']);
+      return setTimeout(this.event, 1000);
+    };
+
+    loadingController.prototype.event = function() {
+      return $('body').trigger('AppEvent', ['SCREEN1']);
     };
 
     return loadingController;

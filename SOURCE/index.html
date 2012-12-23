@@ -4,25 +4,35 @@
     <link href="skins/css/main.css" rel="stylesheet" type="text/css" media="all" />
   </head>
   <body>
-    <div id="loading">
+    <div id="loading" class="screen">
       <div class="circle"></div>
       <div class="circle1"></div>
+      <div class="loading">Loading <span class="dots"></span></div>
       <div class="version">Version 0.1</div>
     </div>
-    <div id="screen1">
+    <div id="screen1" class="screen">
       <h1>Ingress Portal link distance calculator</h1>
       <div>
-        <div>Level: <span class="value level"></span></div>
-        <div>Max Link distance: <span class="value maxlinkdistance"></span></div>
-        <div>Energy: <span class="value energy"></span></div>
+        <div>Level: <span class="value level">-</span></div>
+        <div>Max Link distance: <span class="value maxlinkdistance">-</span><span class="unit distanceunit">m</span></div>
+        <div>Energy: <span class="value energy">-</span><span class="unit energyunit">K</span></div>
         <div id="portalchart" style="width: 200px; height: 200px; margin: 0 auto"></div>
         <ol title="cardinal points" class="list">
         </ol>
       </div>
     </div>
-    <div id="screen2">
+    <div id="screen2" class="screen">
+      <h1>Settings</h1>
+      <h2>Units</h2>
+      <h3>Distance</h3>
+      <input type="radio" name="unit" value="metric">metric</input>
+      <input type="radio" name="unit" value="imperial">imperial</input>
+      <h2>Energy</h2>
+      <input type="radio" name="unit" value="-">-</input>
+      <input type="radio" name="unit" value="kilo">M</input>
+      <input type="radio" name="unit" value="mega">M</input>
     </div>
-    <div id="screen3">
+    <div id="screen3" class="screen">
       <h1>Credits</h1>
       <h2>Author</h2>
       <div class="credit">Sébastien Barbieri</div>

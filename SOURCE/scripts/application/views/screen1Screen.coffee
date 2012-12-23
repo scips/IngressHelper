@@ -6,7 +6,14 @@ define ["jquery","underscore","application/views/screen","highcharts","highchart
         <li>
           <%= direction %>: 
           <select name="<%= direction %>">
-            <% for(i=0;i<=8;i++) print('<option value="'+i+'">'+i+'</option>'); %>
+            <% for(i=0;i<=8;i++)
+            {
+              if(i==value) 
+                print('<option value="'+i+'" selected>'+i+'</option>'); 
+              else
+                print('<option value="'+i+'">'+i+'</option>'); 
+            }
+            %>
           </select>
         </li>
       """
@@ -25,10 +32,12 @@ define ["jquery","underscore","application/views/screen","highcharts","highchart
 
     parseTemplate:()->
       template = @getItemTemplate()
-      if @data && @data.length >0
-        list = for item in @data
+      if @data
+        list = for key,value of @data
           liItem = 
-            direction: item
+            direction: key
+            value: value
+          console.log liItem
           _.template(template,liItem)
 
     displayGraph:() ->
@@ -90,14 +99,30 @@ define ["jquery","underscore","application/views/screen","highcharts","highchart
             groupPadding: 0
         series: [
           type: 'area'
+          name: 'defaultlevel'
+          data: [8,8,8,8,8,8,8,8]
+        ,
+          type: 'area'
           name: 'level'
-          color: "#00F"
-          data: [1,0,0,0,0,0,0,0]
+          data: [0,0,0,0,0,0,0,0]
         ]
+      values = for key,value of @data
+        value
+      options.series[1].data = values
       @mychart = new Highcharts.Chart(options)
 
-    updateGraph: (option,value) ->
-      @mychart.series[0].data[option].update(value)
+    updateGraph: (compassDirection,value) ->
+      mapCompassDirectionOrder =
+        N: 0
+        NE: 1
+        E: 2
+        SE: 3
+        S: 4
+        SW: 5
+        W: 6
+        NW: 7
+      if @mychart.series[1]?.data[mapCompassDirectionOrder[compassDirection]]?
+        @mychart.series[1].data[mapCompassDirectionOrder[compassDirection]].update(value)
 
     updateLevel: (value) ->
       $("#{@divID} .level").html(value)

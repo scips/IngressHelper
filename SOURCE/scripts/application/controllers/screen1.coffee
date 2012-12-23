@@ -3,11 +3,10 @@ define ["jquery","application/controllers/controller"], ($,Controller) ->
   class screen1Controller extends Controller
     @baseDistance = 160
 
-    constructor:(@view,@api)->
+    constructor:(@view,@settings)->
       super @view
-      @polarArray = ['N','NE','E','SE','S','SW','W','NW']
-      @polarValues = [0,0,0,0,0,0,0,0]
-      @view.setData(@polarArray)
+      @polarData = @settings.polarValues
+      @view.setData(@polarData)
       @view.setCallbackListUpdate(@listUpdate)
       @level = 0
 
@@ -18,9 +17,9 @@ define ["jquery","application/controllers/controller"], ($,Controller) ->
 
     listUpdate: (updateEvent) =>
       value = parseInt(updateEvent.srcElement.value)
-      option = @polarArray.indexOf(updateEvent.srcElement.name)
-      @view.updateGraph(option,value)
-      @polarValues[option] = value
+      compassDirection = updateEvent.srcElement.name
+      @view.updateGraph(compassDirection,value)
+      @polarData[compassDirection] = value
       @view.updateLevel(@average())
       @view.updateDistance(@distance())
       @view.updateEnergy(@energy())
@@ -28,7 +27,7 @@ define ["jquery","application/controllers/controller"], ($,Controller) ->
     average: () ->
       count = 0
       total = 0
-      for value in @polarValues
+      for key,value of @polarData
         count++
         total+=value
       total/count
@@ -37,7 +36,7 @@ define ["jquery","application/controllers/controller"], ($,Controller) ->
       count = 0
       total = 0
       countActif = 0
-      for value in @polarValues
+      for key,value of @polarData
         countActif++ if value > 0
         count++
         total+=value
@@ -50,6 +49,6 @@ define ["jquery","application/controllers/controller"], ($,Controller) ->
     energy: () ->
       energyMap = [0,1,1.5,2,2.5,3,4,5,6]
       total = 0
-      for value in @polarValues
+      for key,value of @polarData
         total += energyMap[value]
       total

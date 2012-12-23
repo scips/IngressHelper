@@ -14,3 +14,10 @@ li.item .value {
   width: 1000px;
   height: 500px;
 }
+#screen1 .value {
+  color: #0F0;
+}
+
+#screen1 .unit {
+  color: #0F0;
+}

@@ -9,7 +9,7 @@ define(["jquery", "underscore", "application/views/screen", "highcharts", "highc
     __extends(screen1ScreenView, _super);
 
     screen1ScreenView.prototype.getItemTemplate = function() {
-      return "<li>\n  <%= direction %>: \n  <select name=\"<%= direction %>\">\n    <% for(i=0;i<=8;i++) print('<option value=\"'+i+'\">'+i+'</option>'); %>\n  </select>\n</li>";
+      return "<li>\n  <%= direction %>: \n  <select name=\"<%= direction %>\">\n    <% for(i=0;i<=8;i++)\n    {\n      if(i==value) \n        print('<option value=\"'+i+'\" selected>'+i+'</option>'); \n      else\n        print('<option value=\"'+i+'\">'+i+'</option>'); \n    }\n    %>\n  </select>\n</li>";
     };
 
     function screen1ScreenView(divID) {
@@ -31,18 +31,20 @@ define(["jquery", "underscore", "application/views/screen", "highcharts", "highc
     };
 
     screen1ScreenView.prototype.parseTemplate = function() {
-      var item, liItem, list, template;
+      var key, liItem, list, template, value;
       template = this.getItemTemplate();
-      if (this.data && this.data.length > 0) {
+      if (this.data) {
         return list = (function() {
-          var _i, _len, _ref, _results;
+          var _ref, _results;
           _ref = this.data;
           _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            item = _ref[_i];
+          for (key in _ref) {
+            value = _ref[key];
             liItem = {
-              direction: item
+              direction: key,
+              value: value
             };
+            console.log(liItem);
             _results.push(_.template(template, liItem));
           }
           return _results;
@@ -51,7 +53,7 @@ define(["jquery", "underscore", "application/views/screen", "highcharts", "highc
     };
 
     screen1ScreenView.prototype.displayGraph = function() {
-      var legend, options;
+      var key, legend, options, value, values;
       legend = {
         0: "N",
         45: "NE",
@@ -128,17 +130,44 @@ define(["jquery", "underscore", "application/views/screen", "highcharts", "highc
         series: [
           {
             type: 'area',
+            name: 'defaultlevel',
+            data: [8, 8, 8, 8, 8, 8, 8, 8]
+          }, {
+            type: 'area',
             name: 'level',
-            color: "#00F",
-            data: [1, 0, 0, 0, 0, 0, 0, 0]
+            data: [0, 0, 0, 0, 0, 0, 0, 0]
           }
         ]
       };
+      values = (function() {
+        var _ref, _results;
+        _ref = this.data;
+        _results = [];
+        for (key in _ref) {
+          value = _ref[key];
+          _results.push(value);
+        }
+        return _results;
+      }).call(this);
+      options.series[1].data = values;
       return this.mychart = new Highcharts.Chart(options);
     };
 
-    screen1ScreenView.prototype.updateGraph = function(option, value) {
-      return this.mychart.series[0].data[option].update(value);
+    screen1ScreenView.prototype.updateGraph = function(compassDirection, value) {
+      var mapCompassDirectionOrder, _ref;
+      mapCompassDirectionOrder = {
+        N: 0,
+        NE: 1,
+        E: 2,
+        SE: 3,
+        S: 4,
+        SW: 5,
+        W: 6,
+        NW: 7
+      };
+      if (((_ref = this.mychart.series[1]) != null ? _ref.data[mapCompassDirectionOrder[compassDirection]] : void 0) != null) {
+        return this.mychart.series[1].data[mapCompassDirectionOrder[compassDirection]].update(value);
+      }
     };
 
     screen1ScreenView.prototype.updateLevel = function(value) {
