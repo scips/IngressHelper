@@ -20,8 +20,6 @@ define [
       @screen1Controller = new screen1Controller(new screen1View("#screen1"),@api)
       @statemachine.add(@screen1Controller)
 
-      @loadingController.activate()
-
       console.log("Application initialized...")
       
       $('body').bind 'keydown', (e) =>
@@ -29,6 +27,8 @@ define [
 
       $('body').bind 'AppEvent', (e,action) =>
         @dispatch(action)
+
+      @loadingController.activate()
 
     dispatch: (e)->
       console.log "dispatch received:"

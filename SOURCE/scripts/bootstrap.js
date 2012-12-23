@@ -2,11 +2,19 @@ require.config({
     paths: {
         "jquery": "vendor/jquery/jquery",
         "depend": "vendor/require/plugins/depend",
-        "underscore": "vendor/underscore/underscore"
+        "underscore": "vendor/underscore/underscore",
+        "highcharts": "vendor/highcharts/highcharts",
+        "highchartsmore": "vendor/highcharts/highcharts-more",
+        "highchartsexport": "vendor/highcharts/exporting"
     },
     shim: {
-      'vendor/jquery/jquery.flot.time': ['vendor/jquery/jquery.flot','jquery'],
-      'vendor/jquery/jquery.flot':['jquery']
+      highcharts: {
+        deps: ['jquery'],exports: "Highcharts"
+      },highchartsexport: {
+        deps: ['highcharts'],exports: "Exporting"
+      },highchartsmore: {
+        deps: ['highcharts'],exports: "HighchartsMore"
+      }
     },
     waitSeconds: 5
 });

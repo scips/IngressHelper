@@ -1,18 +1,33 @@
 <html>
   <head>
-    <title>Samsung Smart app base</title>
+    <title>Ingress Side app</title>
     <link href="skins/css/main.css" rel="stylesheet" type="text/css" media="all" />
   </head>
   <body>
     <div id="loading">
-      Loading...
       <div class="circle"></div>
       <div class="circle1"></div>
+      <div class="version">Version 0.1</div>
     </div>
     <div id="screen1">
-      <h1>Main screen</h1>
-      <ul class="list"></ul>
-      <div class="graph"></div>
+      <h1>Ingress Portal link distance calculator</h1>
+      <div>
+        <div>Level: <span class="value level"></span></div>
+        <div>Max Link distance: <span class="value maxlinkdistance"></span></div>
+        <div>Energy: <span class="value energy"></span></div>
+        <div id="portalchart" style="width: 200px; height: 200px; margin: 0 auto"></div>
+        <ol title="cardinal points" class="list">
+        </ol>
+      </div>
+    </div>
+    <div id="screen2">
+    </div>
+    <div id="screen3">
+      <h1>Credits</h1>
+      <h2>Author</h2>
+      <div class="credit">Sébastien Barbieri</div>
+      <h2>Licences</h2>
+      <div class="licences">Highcharts (CC BY-NC 3.0)</div>
     </div>
     <script data-main="scripts/bootstrap" src="scripts/vendor/require/require.js" type="text/javascript"></script> 
   </body>
