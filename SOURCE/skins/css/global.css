@@ -1,0 +1,8 @@
+body {
+  background-color: black;
+  color: lightgrey;
+}
+p {
+  color: white;
+}
+ul, ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }

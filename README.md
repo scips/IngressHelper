@@ -1,4 +1,6 @@
-IngressHelper
-=============
+Ingress WebApp to calculate portal distances
+============================================
 
-MVC webapp to calculate resonator power/distance
+Just bookmark the app to install it permanentely
+
+No server side access needed (yet) this app can work as standalone and offline
