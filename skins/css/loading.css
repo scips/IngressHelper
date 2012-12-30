@@ -1,0 +1,36 @@
+#loading .loading{
+  width: 100px;
+  height: 20px;
+  position: relative;
+  top: -100px;
+  margin:0 auto;
+}
+
+#loading .circle {
+  background-image: url('../images/outerwheel.png');
+  width:100px;
+  height:102px;
+  margin:0 auto;
+  -moz-animation:spinPulse 2s infinite ease-in-out;
+  -webkit-animation:spinPulse 2s infinite linear;
+}
+#loading .circle1 {
+  background-image: url('../images/innerwheel.png');
+  width:100px;
+  height:102px;
+  margin:0 auto;
+  position:relative;
+  top:-100px;
+  -moz-animation:spinPulse 2s infinite linear;
+  -webkit-animation:spinPulse 2s infinite linear;
+}
+
+@-moz-keyframes spinPulse {
+  0% { -moz-transform:rotate(0deg); }
+  100% { -moz-transform:rotate(-360deg); }
+}
+
+@-webkit-keyframes spinPulse {
+  0% { -webkit-transform:rotate(0deg); }
+  100% { -webkit-transform:rotate(-360deg); }
+}

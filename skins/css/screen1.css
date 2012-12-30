@@ -1,0 +1,23 @@
+#screen1 {
+  display: none;
+}
+li.item {
+  width: 230px;
+}
+li.item .title {
+  width: 100px;
+}
+li.item .value {
+  width: 100px;
+}
+#screen1 .graph {
+  width: 1000px;
+  height: 500px;
+}
+#screen1 .value {
+  color: #0F0;
+}
+
+#screen1 .unit {
+  color: #0F0;
+}
